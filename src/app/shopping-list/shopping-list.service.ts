@@ -20,16 +20,8 @@ export class ShoppingListService {
   }
 
   addIngredients(ingredientsIn: Ingredient[]) {
-
-    for (const ingredient of ingredientsIn) {
-      let i = this.ingredients.findIndex(x => x.name === ingredient.name);
-
-      if (i !== -1) {
-        this.ingredients[i].amount += ingredient.amount;
-      } else {
-        this.ingredients.push(ingredient);
-      }
-    }
+    this.ingredients.push(...ingredientsIn);
+    this.ingredientsChanged.emit(this.ingredients.slice());
   }
 
 

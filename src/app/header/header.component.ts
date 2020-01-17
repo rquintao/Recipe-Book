@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +7,25 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  toRecipes: boolean;
+  @Output() headerEvent = new EventEmitter<boolean>();
+
+
   constructor() {
+    this.toRecipes = true;
+    this.emitEvent();
+    console.log('emitiu');
+  }
+
+
+  headerSelection(selection: string) {
+    selection === 'recipe' ? this.toRecipes = true : this.toRecipes = false;
+    this.emitEvent();
+  }
+
+  emitEvent() {
+    this.headerEvent.emit(this.toRecipes);
+    console.log('emitiu da função');
   }
 
   ngOnInit() {

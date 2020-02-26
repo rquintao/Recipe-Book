@@ -1,9 +1,8 @@
-<app-header (headerEvent)="toRecipes = $event"></app-header>
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes *ngIf="toRecipes"></app-recipes>
-      <app-shopping-list *ngIf="!toRecipes"></app-shopping-list>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

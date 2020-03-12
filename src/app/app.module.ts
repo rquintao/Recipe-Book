@@ -17,6 +17,11 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing-module';
 import {NoRecipeComponent} from './recipes/no-recipe/no-recipe.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DataStorageService} from './shared/data-storage.service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthComponent} from './auth/auth.component';
+import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
+import {AuthInterceptorService} from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -30,16 +35,22 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     RecipeItemComponent,
     DropdownDirective,
     RecipeEditComponent,
-    NoRecipeComponent
+    NoRecipeComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [RecipeService, ShoppingListService],
+  providers: [RecipeService,
+    ShoppingListService,
+    DataStorageService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {
